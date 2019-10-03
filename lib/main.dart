@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Rota de Fuga',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Rota de Fuga'),
     );
   }
 }
@@ -102,10 +104,53 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _pushMapScreen,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  void _pushMapScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MapsPage()));
+  }
+}
+class MapsPage extends StatefulWidget {
+  @override
+  _MapsPageState createState() => _MapsPageState();
+}
+class _MapsPageState extends State<MapsPage> {
+  GoogleMapController mapController;
+
+  LatLng _center = getLocation() as LatLng;
+  
+  
+    void _onMapCreated(GoogleMapController controller) {
+      mapController = controller;
+    }
+  
+    @override
+    Widget build(BuildContext context) {
+      return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Rota de fuga'),
+            backgroundColor: Colors.blue,
+          ),
+          body: GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 11.0,
+            ),
+          ),
+        ),
+      );
+    }
+  }
+  
+  Future<LatLng> getLocation() async {
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    final LatLng coords = LatLng(position.latitude, position.longitude);
+    return coords;
 }
