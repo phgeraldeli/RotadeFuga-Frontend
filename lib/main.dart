@@ -112,45 +112,49 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushMapScreen() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MapsPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MapsPage()));
   }
 }
+
 class MapsPage extends StatefulWidget {
   @override
   _MapsPageState createState() => _MapsPageState();
 }
+
 class _MapsPageState extends State<MapsPage> {
   GoogleMapController mapController;
+  Geolocator locate = Geolocator();
+  LatLng _center = LatLng(-22.905336, -43.141555);
 
-  LatLng _center = getLocation() as LatLng;
-  
-  
-    void _onMapCreated(GoogleMapController controller) {
-      mapController = controller;
-    }
-  
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Rota de fuga'),
-            backgroundColor: Colors.blue,
-          ),
-          body: GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 11.0,
-            ),
-          ),
-        ),
-      );
-    }
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
   }
-  
-  Future<LatLng> getLocation() async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    final LatLng coords = LatLng(position.latitude, position.longitude);
-    return coords;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Rota de fuga'),
+          backgroundColor: Colors.blue,
+        ),
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
+          ),
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+        ),
+      ),
+    );
+  }
+}
+
+LatLng getLocation() {
+  LatLng coords;
+  Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value){coords = LatLng(value.latitude, value.longitude);});
+  return coords;
 }
