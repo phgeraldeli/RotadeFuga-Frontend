@@ -11,13 +11,6 @@ class Cadastro extends StatefulWidget {
 }
 
 class CadastroState extends State<Cadastro> {
-  bool _isSelected = false;
-
-  void _radio() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
 
   Widget horizontalLine() => Padding(
     padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -40,7 +33,7 @@ class CadastroState extends State<Cadastro> {
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
         title: Text(
-          "rota de fuga",
+          "Rota de Fuga",
         ),
       ),
       body: Stack(

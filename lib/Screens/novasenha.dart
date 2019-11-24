@@ -37,7 +37,7 @@ class NovaSenhaState extends State<NovaSenha> {
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
         title: Text(
-          "rota de fuga",
+          "Rota de Fuga",
         ),
       ),
       body: Stack(

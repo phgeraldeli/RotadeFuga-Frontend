@@ -269,7 +269,7 @@ class _MyAppState extends State<MyApp> {
                         padding: EdgeInsets.only(top: 10.0) ,
                       ),
                       Text(
-                        "rota de fuga",
+                        "Rota de Fuga",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 24.0,

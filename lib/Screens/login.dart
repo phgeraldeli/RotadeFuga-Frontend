@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rota_de_fuga/Widgets/FadeRoute.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rota_de_fuga/Widgets/FormCard.dart';
-
 import 'cadastro.dart';
 import 'mapa.dart';
 
@@ -60,7 +59,7 @@ class LoginState extends State<Login> {
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
         title: Text(
-          "rota de fuga",
+          "Rota de Fuga",
         ),
       ),
       body: Stack(
