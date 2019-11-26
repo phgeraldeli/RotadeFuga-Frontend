@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:rota_de_fuga/Widgets/FadeRoute.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'cadastro.dart';
+import 'mapa.dart';
+import 'novasenha.dart';
 
-class NovaSenha extends StatefulWidget {
+class LoginAdmin extends StatefulWidget {
   @override
   State<StatefulWidget> createState(){
-    return NovaSenhaState();
+    return LoginAdminState();
   }
 }
 
-class NovaSenhaState extends State<NovaSenha> {
+class LoginAdminState extends State<LoginAdmin> {
 
   final userController = TextEditingController();
   final passwordController = TextEditingController();
@@ -18,6 +22,31 @@ class NovaSenhaState extends State<NovaSenha> {
     userController.dispose();
     super.dispose();
   }
+
+  bool _isSelected = false;
+
+  void _radio() {
+    setState(() {
+      _isSelected = !_isSelected;
+    });
+  }
+
+  Widget radioButton(bool isSelected) => Container(
+    width: 16.0,
+    height: 16.0,
+    padding: EdgeInsets.all(2.0),
+    decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(width: 2.0, color: Colors.deepPurple)),
+    child: isSelected
+        ? Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration:
+      BoxDecoration(shape: BoxShape.circle, color: Colors.deepPurple),
+    )
+        : Container(),
+  );
 
   Widget horizontalLine() => Padding(
     padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -75,12 +104,13 @@ class NovaSenhaState extends State<NovaSenha> {
                         color: Colors.deepPurple,
                       ),
                     ),
+
                     child: Padding(
                       padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("nova senha",
+                          Text("login administrador",
                               style: TextStyle(
                                   color: Colors.deepPurple,
                                   fontSize: ScreenUtil.getInstance().setSp(45),
@@ -103,7 +133,7 @@ class NovaSenhaState extends State<NovaSenha> {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
-                          Text("nova senha",
+                          Text("senha",
                               style: TextStyle(
                                   color: Colors.deepPurple,
                                   fontFamily: "Poppins-Medium",
@@ -112,17 +142,54 @@ class NovaSenhaState extends State<NovaSenha> {
                             controller: passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
-                                hintText: "nova senha",
+                                hintText: "senha",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
                           ),
+                          SizedBox(
+                            height: ScreenUtil.getInstance().setHeight(35),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    FadeRoute(page: NovaSenha()),
+                                  );
+                                },
+                                child: Text("esqueceu a senha?",
+                                    style: TextStyle(
+                                        color: Colors.deepPurple,
+                                        fontFamily: "Poppins-Bold")),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
                   ),
                   SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 12.0,
+                          ),
+                          GestureDetector(
+                            onTap: _radio,
+                            child: radioButton(_isSelected),
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Text("lembrar usuário",
+                              style: TextStyle(
+                                  fontSize: 12, fontFamily: "Poppins-Medium"))
+                        ],
+                      ),
                       InkWell(
                         child: Container(
                           width: ScreenUtil.getInstance().setWidth(300),
@@ -131,10 +198,13 @@ class NovaSenhaState extends State<NovaSenha> {
                             color: Colors.deepPurple,
                             child: InkWell(
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  FadeRoute(page: Mapa()),
+                                );
                               },
                               child: Center(
-                                child: Text("Confirmar",
+                                child: Text("entrar",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: "Poppins-Bold",
@@ -154,6 +224,27 @@ class NovaSenhaState extends State<NovaSenha> {
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(30),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "novo usuário? ",
+                        style: TextStyle(fontFamily: "Poppins-Medium"),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            FadeRoute(page: Cadastro()),
+                          );
+                        },
+                        child: Text("cadastre-se",
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontFamily: "Poppins-Bold")),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

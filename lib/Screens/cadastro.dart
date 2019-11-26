@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rota_de_fuga/Widgets/SignupCard.dart';
 
 
 class Cadastro extends StatefulWidget {
@@ -11,6 +10,15 @@ class Cadastro extends StatefulWidget {
 }
 
 class CadastroState extends State<Cadastro> {
+
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    userController.dispose();
+    super.dispose();
+  }
 
   Widget horizontalLine() => Padding(
     padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -58,7 +66,60 @@ class CadastroState extends State<Cadastro> {
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(180),
                   ),
-                  SignupCard(),
+              Container(
+                width: double.infinity,
+                height: ScreenUtil.getInstance().setHeight(512),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("cadastro",
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: ScreenUtil.getInstance().setSp(45),
+                              fontFamily: "Poppins-Bold",
+                              letterSpacing: .6)),
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(30),
+                      ),
+                      Text("usuario",
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontFamily: "Poppins-Medium",
+                              fontSize: ScreenUtil.getInstance().setSp(26))),
+                      TextField(
+                        controller: userController,
+                        decoration: InputDecoration(
+                            hintText: "usuario",
+                            hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(30),
+                      ),
+                      Text("senha",
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontFamily: "Poppins-Medium",
+                              fontSize: ScreenUtil.getInstance().setSp(26))),
+                      TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            hintText: "senha",
+                            hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
                   SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -70,7 +131,9 @@ class CadastroState extends State<Cadastro> {
                           child: Material(
                             color: Colors.deepPurple,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                               child: Center(
                                 child: Text("confirmar",
                                     style: TextStyle(
