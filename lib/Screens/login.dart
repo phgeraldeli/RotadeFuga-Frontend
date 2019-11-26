@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rota_de_fuga/Widgets/FadeRoute.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rota_de_fuga/Widgets/FormCard.dart';
-import 'cadastro.dart';
+import 'loginadmin.dart';
 import 'mapa.dart';
 
 class Login extends StatefulWidget {
@@ -13,6 +12,15 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+
+  final userController = TextEditingController();
+
+  @override
+  void dispose() {
+    userController.dispose();
+    super.dispose();
+  }
+
   bool _isSelected = false;
 
   void _radio() {
@@ -84,7 +92,52 @@ class LoginState extends State<Login> {
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(180),
                   ),
-                  FormCard(),
+              Container(
+                width: double.infinity,
+                height: ScreenUtil.getInstance().setHeight(512),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: Colors.deepPurple,
+                  ),
+                ),
+
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("login",
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: ScreenUtil.getInstance().setSp(45),
+                              fontFamily: "Poppins-Bold",
+                              letterSpacing: .6)),
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(90),
+                      ),
+                      Text("usuario",
+                          style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontFamily: "Poppins-Medium",
+                              fontSize: ScreenUtil.getInstance().setSp(26))),
+                      TextField(
+                        controller: userController,
+                        decoration: InputDecoration(
+                            hintText: "usuario",
+                            hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(30),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(35),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
                   SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,17 +197,17 @@ class LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "novo usuário? ",
+                        "fazer login como ",
                         style: TextStyle(fontFamily: "Poppins-Medium"),
                       ),
                       InkWell(
                         onTap: () {
                           Navigator.push(
                             context,
-                            FadeRoute(page: Cadastro()),
+                            FadeRoute(page: LoginAdmin()),
                           );
                         },
-                        child: Text("cadastre-se",
+                        child: Text("administrador",
                             style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontFamily: "Poppins-Bold")),
