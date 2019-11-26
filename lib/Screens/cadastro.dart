@@ -131,7 +131,9 @@ class CadastroState extends State<Cadastro> {
                           child: Material(
                             color: Colors.deepPurple,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                               child: Center(
                                 child: Text("confirmar",
                                     style: TextStyle(

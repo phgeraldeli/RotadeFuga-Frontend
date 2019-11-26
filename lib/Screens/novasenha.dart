@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rota_de_fuga/Widgets/FadeRoute.dart';
-
-import 'loginadmin.dart';
 
 class NovaSenha extends StatefulWidget {
   @override
@@ -134,10 +131,7 @@ class NovaSenhaState extends State<NovaSenha> {
                             color: Colors.deepPurple,
                             child: InkWell(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  FadeRoute(page: LoginAdmin()),
-                                );
+                                Navigator.pop(context);
                               },
                               child: Center(
                                 child: Text("Confirmar",
